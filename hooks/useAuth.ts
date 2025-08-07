@@ -22,20 +22,37 @@ export function useAuth() {
   const supabase = createSupabaseClient()
 
   useEffect(() => {
+    let mounted = true
+
     // Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null)
-      if (session?.user) {
-        fetchUserProfile(session.user.id)
-      } else {
-        setLoading(false)
+    const getInitialSession = async () => {
+      try {
+        const { data: { session } } = await supabase.auth.getSession()
+        if (!mounted) return
+
+        setUser(session?.user ?? null)
+        if (session?.user) {
+          await fetchUserProfile(session.user.id)
+        } else {
+          setLoading(false)
+        }
+      } catch (error) {
+        console.error('Error getting initial session:', error)
+        if (mounted) {
+          setLoading(false)
+        }
       }
-    })
+    }
+
+    getInitialSession()
 
     // Listen for auth changes
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (!mounted) return
+
+      console.log('Auth state changed:', event, !!session?.user)
       setUser(session?.user ?? null)
       
       if (session?.user) {
@@ -46,8 +63,11 @@ export function useAuth() {
       }
     })
 
-    return () => subscription.unsubscribe()
-  }, [supabase])
+    return () => {
+      mounted = false
+      subscription.unsubscribe()
+    }
+  }, [])
 
   const fetchUserProfile = async (userId: string) => {
     try {
@@ -57,13 +77,32 @@ export function useAuth() {
         .eq('id', userId)
         .single()
 
-      if (error) {
+      if (error && error.code !== 'PGRST116') { // PGRST116 = no rows returned
         console.error('Error fetching user profile:', error)
-      } else {
+        // Create a basic profile if one doesn't exist
+        setProfile({
+          id: userId,
+          email: user?.email || '',
+          role: 'viewer'
+        })
+      } else if (profile) {
         setProfile(profile)
+      } else {
+        // No profile exists, create a basic one
+        setProfile({
+          id: userId,
+          email: user?.email || '',
+          role: 'viewer'
+        })
       }
     } catch (error) {
       console.error('Error in fetchUserProfile:', error)
+      // Fallback profile
+      setProfile({
+        id: userId,
+        email: user?.email || '',
+        role: 'viewer'
+      })
     } finally {
       setLoading(false)
     }

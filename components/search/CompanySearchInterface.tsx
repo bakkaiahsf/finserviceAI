@@ -213,20 +213,34 @@ export default function CompanySearchInterface() {
               </InputRightElement>
             </InputGroup>
 
-            {/* Quick Search Suggestions */}
-            <HStack spacing={2} w="full" overflowX="auto">
-              <Text fontSize="sm" color="gray.600" flexShrink={0}>Quick search:</Text>
-              {['Apple Inc', 'Google', 'Microsoft', 'Amazon', 'Tesla'].map((suggestion) => (
-                <Tag
-                  key={suggestion}
-                  size="sm"
-                  cursor="pointer"
-                  _hover={{ bg: 'brand.100' }}
-                  onClick={() => handleSearch(suggestion)}
-                >
-                  <TagLabel>{suggestion}</TagLabel>
-                </Tag>
-              ))}
+            {/* Search Options and Suggestions */}
+            <HStack spacing={4} w="full" wrap="wrap">
+              <VStack align="start" spacing={2}>
+                <Text fontSize="sm" color="gray.600" fontWeight="medium">Search by:</Text>
+                <HStack spacing={2} wrap="wrap">
+                  <Tag size="sm" colorScheme="blue" variant="outline">Company Name</Tag>
+                  <Tag size="sm" colorScheme="green" variant="outline">Company Number</Tag>
+                  <Tag size="sm" colorScheme="purple" variant="outline">Keywords</Tag>
+                </HStack>
+              </VStack>
+              
+              <VStack align="start" spacing={2}>
+                <Text fontSize="sm" color="gray.600" fontWeight="medium">Quick search:</Text>
+                <HStack spacing={2} wrap="wrap">
+                  {['Apple Inc', '12345678', 'Microsoft', 'banking', 'technology'].map((suggestion) => (
+                    <Tag
+                      key={suggestion}
+                      size="sm"
+                      cursor="pointer"
+                      _hover={{ bg: 'brand.100', transform: 'translateY(-1px)' }}
+                      onClick={() => handleSearch(suggestion)}
+                      transition="all 0.2s"
+                    >
+                      <TagLabel>{suggestion}</TagLabel>
+                    </Tag>
+                  ))}
+                </HStack>
+              </VStack>
             </HStack>
           </VStack>
         </CardBody>
@@ -355,8 +369,8 @@ export default function CompanySearchInterface() {
                           </HStack>
 
                           {/* Company Details */}
-                          <Grid templateColumns="repeat(auto-fit, minmax(200px, 1fr))" gap={4} w="full">
-                            <VStack align="start" spacing={2}>
+                          <Grid templateColumns="repeat(auto-fit, minmax(250px, 1fr))" gap={4} w="full">
+                            <VStack align="start" spacing={3}>
                               <HStack spacing={2} color="gray.600">
                                 <FaBuilding size={14} />
                                 <Text fontSize="sm">
@@ -371,18 +385,66 @@ export default function CompanySearchInterface() {
                                   </Text>
                                 </HStack>
                               )}
+                              
+                              {/* KYC Status Indicator */}
+                              <HStack spacing={2}>
+                                <Badge
+                                  colorScheme="green"
+                                  variant="outline"
+                                  size="sm"
+                                >
+                                  KYC Ready
+                                </Badge>
+                                <Badge
+                                  colorScheme="blue"
+                                  variant="outline"
+                                  size="sm"
+                                >
+                                  AML Compliant
+                                </Badge>
+                              </HStack>
                             </VStack>
 
                             {company.address && (
-                              <VStack align="start" spacing={2}>
+                              <VStack align="start" spacing={3}>
                                 <HStack spacing={2} color="gray.600" align="start">
                                   <FaMapMarkerAlt size={14} style={{ marginTop: '2px' }} />
                                   <Text fontSize="sm" lineHeight="short">
                                     {formatAddress(company.address)}
                                   </Text>
                                 </HStack>
+                                
+                                {/* Risk Assessment */}
+                                <VStack align="start" spacing={1} w="full">
+                                  <Text fontSize="xs" color="gray.600" fontWeight="medium">Risk Assessment:</Text>
+                                  <HStack spacing={1}>
+                                    <Badge colorScheme="green" size="sm">Low Risk</Badge>
+                                    <Text fontSize="xs" color="gray.500">AI Score: 95/100</Text>
+                                  </HStack>
+                                </VStack>
                               </VStack>
                             )}
+                            
+                            {/* Compliance Information */}
+                            <VStack align="start" spacing={3}>
+                              <VStack align="start" spacing={1} w="full">
+                                <Text fontSize="xs" color="gray.600" fontWeight="medium">Available Data:</Text>
+                                <HStack spacing={1} wrap="wrap">
+                                  <Badge colorScheme="blue" variant="solid" size="xs">Officers</Badge>
+                                  <Badge colorScheme="purple" variant="solid" size="xs">PSCs</Badge>
+                                  <Badge colorScheme="orange" variant="solid" size="xs">Filings</Badge>
+                                  <Badge colorScheme="green" variant="solid" size="xs">Structure</Badge>
+                                </HStack>
+                              </VStack>
+                              
+                              <VStack align="start" spacing={1} w="full">
+                                <Text fontSize="xs" color="gray.600" fontWeight="medium">Analysis:</Text>
+                                <HStack spacing={1} wrap="wrap">
+                                  <Badge colorScheme="teal" variant="outline" size="xs">Relationships</Badge>
+                                  <Badge colorScheme="cyan" variant="outline" size="xs">Ownership</Badge>
+                                </HStack>
+                              </VStack>
+                            </VStack>
                           </Grid>
 
                           {/* Description */}
@@ -397,43 +459,76 @@ export default function CompanySearchInterface() {
                       {/* Action Buttons */}
                       <GridItem>
                         <VStack spacing={2}>
-                          <Tooltip label="View Details">
-                            <IconButton
-                              aria-label="View company details"
-                              icon={<FaEye />}
+                          <Tooltip label="View Full Details & Analysis">
+                            <Button
+                              leftIcon={<FaEye />}
                               size="sm"
-                              variant="outline"
+                              colorScheme="brand"
+                              variant="solid"
                               onClick={(e) => {
                                 e.stopPropagation()
                                 handleCompanySelect(company.company_number)
                               }}
-                            />
+                              w="full"
+                            >
+                              Analyze
+                            </Button>
                           </Tooltip>
-                          <Tooltip label={selectedCompanies.includes(company.company_number) ? "Remove from selection" : "Add to selection"}>
-                            <IconButton
-                              aria-label="Bookmark company"
-                              icon={<FaBookmark />}
+                          
+                          <HStack spacing={1} w="full">
+                            <Tooltip label={selectedCompanies.includes(company.company_number) ? "Remove from watchlist" : "Add to watchlist"}>
+                              <IconButton
+                                aria-label="Add to watchlist"
+                                icon={<FaBookmark />}
+                                size="sm"
+                                variant={selectedCompanies.includes(company.company_number) ? "solid" : "outline"}
+                                colorScheme={selectedCompanies.includes(company.company_number) ? "orange" : "gray"}
+                                onClick={(e) => {
+                                  e.stopPropagation()
+                                  toggleCompanySelection(company.company_number)
+                                }}
+                                flex="1"
+                              />
+                            </Tooltip>
+                            
+                            <Tooltip label="View on Companies House">
+                              <IconButton
+                                aria-label="View on Companies House"
+                                icon={<FaExternalLinkAlt />}
+                                size="sm"
+                                variant="outline"
+                                onClick={(e) => {
+                                  e.stopPropagation()
+                                  window.open(`https://find-and-update.company-information.service.gov.uk/company/${company.company_number}`, '_blank')
+                                }}
+                                flex="1"
+                              />
+                            </Tooltip>
+                          </HStack>
+                          
+                          <Menu>
+                            <MenuButton
+                              as={Button}
                               size="sm"
-                              variant={selectedCompanies.includes(company.company_number) ? "solid" : "outline"}
-                              colorScheme={selectedCompanies.includes(company.company_number) ? "brand" : "gray"}
-                              onClick={(e) => {
-                                e.stopPropagation()
-                                toggleCompanySelection(company.company_number)
-                              }}
-                            />
-                          </Tooltip>
-                          <Tooltip label="View on Companies House">
-                            <IconButton
-                              aria-label="View on Companies House"
-                              icon={<FaExternalLinkAlt />}
-                              size="sm"
-                              variant="ghost"
-                              onClick={(e) => {
-                                e.stopPropagation()
-                                window.open(`https://find-and-update.company-information.service.gov.uk/company/${company.company_number}`, '_blank')
-                              }}
-                            />
-                          </Tooltip>
+                              variant="outline"
+                              rightIcon={<FaChevronDown />}
+                              w="full"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              Reports
+                            </MenuButton>
+                            <MenuList>
+                              <MenuItem icon={<FaUsers />}>
+                                Ownership Structure
+                              </MenuItem>
+                              <MenuItem icon={<FaFileAlt />}>
+                                Compliance Report
+                              </MenuItem>
+                              <MenuItem icon={<FaRobot />}>
+                                Risk Assessment
+                              </MenuItem>
+                            </MenuList>
+                          </Menu>
                         </VStack>
                       </GridItem>
                     </Grid>

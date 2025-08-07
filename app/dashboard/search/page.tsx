@@ -1,12 +1,43 @@
-import { Metadata } from 'next'
-import CompanySearchInterface from '@/components/search/CompanySearchInterface'
+'use client'
 
-export const metadata: Metadata = {
-  title: 'Company Search',
-  description: 'Search UK companies using Companies House data with AI-powered insights and analysis.',
-  keywords: 'company search, UK companies, Companies House, corporate intelligence, beneficial ownership',
-}
+import { useEffect } from 'react'
+import { Box, Container } from '@chakra-ui/react'
+import { useAuth } from '@/hooks/useAuth'
+import { useRouter } from 'next/navigation'
+import CompanySearchInterface from '@/components/search/CompanySearchInterface'
+import Header from '@/components/layout/Header'
 
 export default function SearchPage() {
-  return <CompanySearchInterface />
+  const { isAuthenticated, loading } = useAuth()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!loading && !isAuthenticated) {
+      router.push('/auth/login?next=/dashboard/search')
+    }
+  }, [isAuthenticated, loading, router])
+
+  if (loading) {
+    return (
+      <Box>
+        <Header />
+        <Container maxW="8xl" py={8}>
+          <CompanySearchInterface />
+        </Container>
+      </Box>
+    )
+  }
+
+  if (!isAuthenticated) {
+    return null // Will redirect in useEffect
+  }
+
+  return (
+    <Box minH="100vh" bg="gray.50">
+      <Header />
+      <Container maxW="8xl" py={8}>
+        <CompanySearchInterface />
+      </Container>
+    </Box>
+  )
 }
