@@ -40,7 +40,7 @@ import {
 } from 'react-icons/fa'
 import { useRealTimeUpdates, RealTimeEvent } from '@/hooks/useRealTimeUpdates'
 import { format, formatDistanceToNow } from 'date-fns'
-import { useAuth } from '@/hooks/useAuth'
+import { useAuth } from '@/contexts/AuthContext'
 
 interface Notification {
   id: string

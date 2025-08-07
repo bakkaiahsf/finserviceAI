@@ -68,7 +68,7 @@ import { useAuth } from '@/contexts/AuthContext'
 import { toast } from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
 import { format, parseISO } from 'date-fns'
-import { debounce } from 'lodash'
+import debounce from 'lodash/debounce'
 
 interface SearchResult {
   company_number: string

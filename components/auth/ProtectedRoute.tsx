@@ -14,7 +14,7 @@ import {
   Icon
 } from '@chakra-ui/react'
 import { FaLock, FaExclamationTriangle } from 'react-icons/fa'
-import { useAuth } from '@/hooks/useAuth'
+import { useAuth } from '@/contexts/AuthContext'
 
 interface ProtectedRouteProps {
   children: React.ReactNode

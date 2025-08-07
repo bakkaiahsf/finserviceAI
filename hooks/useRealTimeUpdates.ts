@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useCallback } from 'react'
 import { createClient, RealtimeChannel, RealtimePostgresChangesPayload } from '@supabase/supabase-js'
-import { useAuth } from '@/hooks/useAuth'
+import { useAuth } from '@/contexts/AuthContext'
 import { useQueryClient } from '@tanstack/react-query'
 import { toast } from 'react-hot-toast'
 

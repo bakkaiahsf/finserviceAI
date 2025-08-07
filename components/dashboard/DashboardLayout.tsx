@@ -41,7 +41,7 @@ import {
   FaBars,
   FaChevronRight
 } from 'react-icons/fa'
-import { useAuth } from '@/hooks/useAuth'
+import { useAuth } from '@/contexts/AuthContext'
 import { useRouter, usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { toast } from 'react-hot-toast'

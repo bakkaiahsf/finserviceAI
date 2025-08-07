@@ -45,7 +45,7 @@ import {
   FaNetworkWired,
   FaChartPie,
 } from 'react-icons/fa'
-import { useAuth } from '@/hooks/useAuth'
+import { useAuth } from '@/contexts/AuthContext'
 import { useRouter } from 'next/navigation'
 import { useDashboardRealTimeUpdates } from '@/hooks/useRealTimeUpdates'
 import { useQuery } from '@tanstack/react-query'

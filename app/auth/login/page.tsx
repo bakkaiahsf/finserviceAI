@@ -21,7 +21,7 @@ import {
   useColorModeValue
 } from '@chakra-ui/react'
 import { FaGoogle, FaLock, FaChartLine, FaUsers } from 'react-icons/fa'
-import { useAuth } from '@/hooks/useAuth'
+import { useAuth } from '@/contexts/AuthContext'
 import { toast } from 'react-hot-toast'
 import Head from 'next/head'
 
