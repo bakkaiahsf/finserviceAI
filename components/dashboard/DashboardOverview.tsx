@@ -174,7 +174,7 @@ export default function DashboardOverview() {
           Welcome back, {profile?.full_name?.split(' ')[0] || 'User'}! 👋
         </Heading>
         <Text color="gray.600">
-          Here's what's happening with your corporate intelligence platform today.
+          Here&apos;s what&apos;s happening with your corporate intelligence platform today.
         </Text>
       </Box>
 

@@ -332,7 +332,7 @@ export default function ModernCompanySearch() {
                     {searchResults.total_results.toLocaleString()} companies found
                   </Text>
                   <Text color="gray.600" fontSize="sm">
-                    Searching for "{debouncedQuery}"
+                    Searching for &quot;{debouncedQuery}&quot;
                   </Text>
                 </VStack>
                 <HStack spacing={3}>

@@ -26,6 +26,8 @@ interface AuthContextType {
   signOut: () => Promise<void>
   updateProfile: (updates: Partial<UserProfile>) => Promise<UserProfile | null>
   refreshSession: () => Promise<void>
+  hasRole: (requiredRole: UserProfile['role']) => boolean
+  canAccess: (resource: string) => boolean
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -263,6 +265,40 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   }
 
+  const hasRole = (requiredRole: UserProfile['role']): boolean => {
+    if (!profile) return false
+
+    const roleHierarchy = {
+      viewer: 1,
+      analyst: 2,
+      compliance_officer: 3,
+      admin: 4,
+    }
+
+    const userRoleLevel = roleHierarchy[profile.role]
+    const requiredRoleLevel = roleHierarchy[requiredRole]
+
+    return userRoleLevel >= requiredRoleLevel
+  }
+
+  const canAccess = (resource: string): boolean => {
+    if (!profile) return false
+
+    // Define access rules based on roles
+    const accessRules: Record<string, UserProfile['role'][]> = {
+      'companies.read': ['viewer', 'analyst', 'compliance_officer', 'admin'],
+      'companies.write': ['analyst', 'compliance_officer', 'admin'],
+      'companies.delete': ['compliance_officer', 'admin'],
+      'users.manage': ['admin'],
+      'system.admin': ['admin'],
+      'reports.generate': ['analyst', 'compliance_officer', 'admin'],
+      'ai.process': ['analyst', 'compliance_officer', 'admin'],
+    }
+
+    const allowedRoles = accessRules[resource]
+    return allowedRoles ? allowedRoles.includes(profile.role) : false
+  }
+
   const value: AuthContextType = {
     user,
     profile,
@@ -273,6 +309,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     signOut,
     updateProfile,
     refreshSession,
+    hasRole,
+    canAccess,
   }
 
   return (

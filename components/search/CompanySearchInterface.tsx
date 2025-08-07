@@ -586,7 +586,7 @@ export default function CompanySearchInterface() {
                   variant="outline"
                   onClick={() => handleSearch('Apple')}
                 >
-                  Try "Apple"
+                  Try &quot;Apple&quot;
                 </Button>
                 <Button
                   leftIcon={<FaRobot />}
