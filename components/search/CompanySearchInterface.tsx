@@ -59,7 +59,7 @@ import {
 } from 'react-icons/fa'
 import { useQuery } from '@tanstack/react-query'
 import { companiesHouseAPI, type CompanySearchResult } from '@/lib/apis/companies-house'
-import { useAuth } from '@/hooks/useAuth'
+import { useAuth } from '@/contexts/AuthContext'
 import { toast } from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
 import { format } from 'date-fns'

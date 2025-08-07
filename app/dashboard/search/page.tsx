@@ -2,9 +2,9 @@
 
 import { useEffect } from 'react'
 import { Box, Container } from '@chakra-ui/react'
-import { useAuth } from '@/hooks/useAuth'
+import { useAuth } from '@/contexts/AuthContext'
 import { useRouter } from 'next/navigation'
-import CompanySearchInterface from '@/components/search/CompanySearchInterface'
+import ModernCompanySearch from '@/components/search/ModernCompanySearch'
 import Header from '@/components/layout/Header'
 
 export default function SearchPage() {
@@ -22,7 +22,7 @@ export default function SearchPage() {
       <Box>
         <Header />
         <Container maxW="8xl" py={8}>
-          <CompanySearchInterface />
+          <ModernCompanySearch />
         </Container>
       </Box>
     )
@@ -35,9 +35,7 @@ export default function SearchPage() {
   return (
     <Box minH="100vh" bg="gray.50">
       <Header />
-      <Container maxW="8xl" py={8}>
-        <CompanySearchInterface />
-      </Container>
+      <ModernCompanySearch />
     </Box>
   )
 }

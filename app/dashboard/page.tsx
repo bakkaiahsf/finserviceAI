@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 import { Box, Container } from '@chakra-ui/react'
-import { useAuth } from '@/hooks/useAuth'
+import { useAuth } from '@/contexts/AuthContext'
 import { useRouter } from 'next/navigation'
 import DashboardOverview from '@/components/dashboard/DashboardOverview'
 import Header from '@/components/layout/Header'

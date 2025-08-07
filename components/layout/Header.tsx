@@ -33,7 +33,7 @@ import {
   FaSignInAlt,
   FaChartLine,
 } from 'react-icons/fa'
-import { useAuth } from '@/hooks/useAuth'
+import { useAuth } from '@/contexts/AuthContext'
 import { useRouter } from 'next/navigation'
 import { toast } from 'react-hot-toast'
 import Link from 'next/link'
