@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { 
   Box, 
@@ -25,14 +25,14 @@ import { useAuth } from '@/hooks/useAuth'
 import { toast } from 'react-hot-toast'
 import Head from 'next/head'
 
-export default function LoginPage() {
+function LoginPageContent() {
   const { signInWithGoogle, isAuthenticated, loading } = useAuth()
   const [isSigningIn, setIsSigningIn] = useState(false)
   const router = useRouter()
   const searchParams = useSearchParams()
-  const error = searchParams.get('error')
-  const message = searchParams.get('message')
-  const next = searchParams.get('next')
+  const error = searchParams?.get('error')
+  const message = searchParams?.get('message')
+  const next = searchParams?.get('next')
 
   const bgGradient = useColorModeValue(
     'linear(to-br, blue.50, purple.50, pink.50)',
@@ -240,5 +240,22 @@ function FeatureItem({ icon, title, description }: {
         {description}
       </Text>
     </VStack>
+  )
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={
+      <Flex minH="100vh" align="center" justify="center">
+        <VStack spacing={4}>
+          <Box className="animate-spin">
+            <Icon as={FaLock} w={8} h={8} color="brand.500" />
+          </Box>
+          <Text>Loading...</Text>
+        </VStack>
+      </Flex>
+    }>
+      <LoginPageContent />
+    </Suspense>
   )
 }

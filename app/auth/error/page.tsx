@@ -1,5 +1,6 @@
 'use client'
 
+import { Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { 
   Box, 
@@ -15,7 +16,8 @@ import {
   AlertDescription,
   Code,
   Link,
-  HStack
+  HStack,
+  Flex
 } from '@chakra-ui/react'
 import { FaExclamationTriangle, FaArrowLeft, FaLifeRing } from 'react-icons/fa'
 import NextLink from 'next/link'
@@ -59,11 +61,11 @@ const errorMessages: Record<string, { title: string; description: string; action
   }
 }
 
-export default function AuthErrorPage() {
+function AuthErrorPageContent() {
   const searchParams = useSearchParams()
-  const error = searchParams.get('error') || searchParams.get('message') || 'unknown_error'
-  const errorCode = searchParams.get('error_code')
-  const errorDescription = searchParams.get('error_description')
+  const error = searchParams?.get('error') || searchParams?.get('message') || 'unknown_error'
+  const errorCode = searchParams?.get('error_code')
+  const errorDescription = searchParams?.get('error_description')
 
   const errorInfo = errorMessages[error] || {
     title: 'Authentication Error',
@@ -195,5 +197,22 @@ export default function AuthErrorPage() {
         </Container>
       </Box>
     </>
+  )
+}
+
+export default function AuthErrorPage() {
+  return (
+    <Suspense fallback={
+      <Flex minH="100vh" align="center" justify="center">
+        <VStack spacing={4}>
+          <Box className="animate-spin">
+            <Icon as={FaExclamationTriangle} w={8} h={8} color="red.500" />
+          </Box>
+          <Text>Loading...</Text>
+        </VStack>
+      </Flex>
+    }>
+      <AuthErrorPageContent />
+    </Suspense>
   )
 }
