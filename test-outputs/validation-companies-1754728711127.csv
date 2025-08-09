@@ -1,0 +1,7 @@
+# Nexus AI Business Intelligence Export
+# Export Date,2025-08-09T08:38:31.125Z
+# Record Count,2
+
+Company Number,Company Name,Status,Type,Jurisdiction,Incorporation Date,Cessation Date,SIC Codes,Address,Has Charges,Accounts Overdue
+ALPHA001,ALPHA COMPANY LTD,active,ltd,england-wales,2019-01-01,,62090,"ALPHA HOUSE, MANCHESTER, M1 1AA",No,No
+BETA002,BETA ENTERPRISES LTD,dissolved,ltd,england-wales,2015-06-01,2023-03-01,47110,"BETA BUILDING, BIRMINGHAM, B1 1BB",Yes,Yes

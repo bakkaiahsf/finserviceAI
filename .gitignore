@@ -1,0 +1,116 @@
+# NEXUS AI - Production .gitignore
+# Built by the most intelligent developer for enterprise deployment
+
+# Dependencies
+/node_modules
+/.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# Testing
+/coverage
+*.lcov
+.nyc_output
+
+# Next.js builds
+/.next/
+/out/
+/build
+/dist
+
+# Production builds
+build/
+dist/
+public/build/
+
+# Environment variables (CRITICAL - Never commit these)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env*.local
+
+# Vercel deployment
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Temporary folders
+tmp/
+temp/
+.tmp
+.temp
+
+# Optional caches
+.npm
+.eslintcache
+.yarn-integrity
+
+# Security - API Keys and secrets (NEVER COMMIT)
+secrets/
+*.pem
+*.key
+*.crt
+
+# Database files
+*.sqlite
+*.db
+postgres_data/
+
+# Backup files
+*.bak
+*.backup
+
+# Analytics and monitoring
+.sentryclirc
+
+# Serverless deployment
+.serverless/
+
+# AWS CDK
+cdk.out/
+
+# Supabase
+**/supabase/.branches
+**/supabase/.temp
+
+# Local development
+.local
+.cache/
+.parcel-cache/
+
+# Test outputs (keep these for development reference)
+# test-outputs/

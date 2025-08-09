@@ -1,0 +1,58 @@
+{
+  "sections": [
+    {
+      "title": "Executive Summary",
+      "content": {
+        "companyName": "ALPHA COMPANY LTD",
+        "companyNumber": "ALPHA001",
+        "status": "active",
+        "riskScore": 25
+      }
+    },
+    {
+      "title": "Company Profile",
+      "content": {
+        "basicInfo": {
+          "name": "ALPHA COMPANY LTD",
+          "number": "ALPHA001",
+          "type": "ltd",
+          "jurisdiction": "england-wales",
+          "incorporationDate": "2019-01-01"
+        },
+        "address": {
+          "address_line_1": "ALPHA HOUSE",
+          "locality": "MANCHESTER",
+          "postal_code": "M1 1AA"
+        },
+        "businessInfo": {
+          "sicCodes": [
+            "62090"
+          ],
+          "hasCharges": false,
+          "canFile": true
+        }
+      }
+    },
+    {
+      "title": "AI Insights",
+      "content": {
+        "summary": "Test company with standard business profile",
+        "riskScore": 25,
+        "keyFindings": [
+          "Active status",
+          "Standard compliance",
+          "No major risks"
+        ],
+        "confidence": 85
+      }
+    },
+    {
+      "title": "Metadata",
+      "content": {
+        "generatedAt": "2025-08-09T08:38:31.131Z",
+        "version": "1.0",
+        "source": "Nexus AI Validation"
+      }
+    }
+  ]
+}

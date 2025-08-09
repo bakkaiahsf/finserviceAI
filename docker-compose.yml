@@ -1,0 +1,80 @@
+# NEXUS AI - Docker Compose for Enterprise Deployment
+# Supreme intelligence deployment orchestration
+
+version: '3.8'
+
+services:
+  nexus-ai:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: nexus-ai-production
+    ports:
+      - "3000:3000"
+    environment:
+      # Database Configuration
+      - NEXT_PUBLIC_SUPABASE_URL=${NEXT_PUBLIC_SUPABASE_URL}
+      - NEXT_PUBLIC_SUPABASE_ANON_KEY=${NEXT_PUBLIC_SUPABASE_ANON_KEY}
+      - SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY}
+      
+      # External APIs
+      - COMPANIES_HOUSE_API_KEY=${COMPANIES_HOUSE_API_KEY}
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
+      
+      # Payment Processing
+      - STRIPE_PUBLISHABLE_KEY=${STRIPE_PUBLISHABLE_KEY}
+      - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
+      - STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET}
+      
+      # Application Configuration
+      - NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL:-http://localhost:3000}
+      - NODE_ENV=production
+      
+      # Optional: Analytics & Monitoring
+      - SENTRY_DSN=${SENTRY_DSN}
+      - NEXT_PUBLIC_VERCEL_ANALYTICS_ID=${NEXT_PUBLIC_VERCEL_ANALYTICS_ID}
+      
+    env_file:
+      - .env.production
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+    volumes:
+      # Optional: Mount for logs
+      - ./logs:/app/logs
+    networks:
+      - nexus-network
+    
+  # Optional: Redis for caching (if needed for scaling)
+  redis:
+    image: redis:7-alpine
+    container_name: nexus-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - nexus-network
+    command: redis-server --appendonly yes
+    profiles:
+      - with-redis
+
+networks:
+  nexus-network:
+    driver: bridge
+
+volumes:
+  redis_data:
+    driver: local
+
+# Health monitoring
+x-healthcheck-defaults: &healthcheck
+  interval: 30s
+  timeout: 10s
+  retries: 3
+  start_period: 40s
