@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { Logo } from '@/components/ui/logo';
 import {
   BarChart3,
   Building2,
@@ -25,7 +26,6 @@ import {
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: Home },
   { name: 'Company Search', href: '/dashboard/search', icon: Search },
-  { name: 'Companies', href: '/dashboard/companies', icon: Building2 },
   { name: 'Network Graph', href: '/dashboard/network', icon: Network },
   { name: 'AI Insights', href: '/dashboard/insights', icon: TrendingUp },
   { name: 'Reports', href: '/dashboard/reports', icon: FileText },
@@ -33,11 +33,8 @@ const navigation = [
 ];
 
 const managementNavigation = [
-  { name: 'Team', href: '/dashboard/team', icon: Users },
-  { name: 'Subscription', href: '/dashboard/subscription', icon: CreditCard },
-  { name: 'Compliance', href: '/dashboard/compliance', icon: Shield },
-  { name: 'Analytics', href: '/dashboard/analytics', icon: BarChart3 },
-  { name: 'Settings', href: '/dashboard/settings', icon: Settings },
+  { name: 'Team & Settings', href: '/dashboard/settings', icon: Settings },
+  { name: 'Contact', href: '/dashboard/contact', icon: Users },
 ];
 
 export function DashboardSidebar() {
@@ -57,22 +54,22 @@ export function DashboardSidebar() {
       <Link
         href={item.href}
         className={cn(
-          'group flex items-center px-2 py-2 text-sm font-medium rounded-md transition-colors',
+          'group flex items-center px-3 py-2.5 text-sm font-medium rounded-lg transition-all duration-200 ease-in-out',
           isActive
-            ? 'bg-blue-100 text-blue-700'
-            : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-          mobile && 'px-3 py-3'
+            ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-500 shadow-sm'
+            : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900 hover:shadow-sm',
+          mobile && 'px-4 py-3 mx-2'
         )}
         onClick={() => mobile && setMobileMenuOpen(false)}
       >
         <item.icon
           className={cn(
-            'mr-3 flex-shrink-0 h-5 w-5',
-            isActive ? 'text-blue-500' : 'text-gray-400 group-hover:text-gray-500'
+            'mr-3 flex-shrink-0 h-5 w-5 transition-colors duration-200',
+            isActive ? 'text-blue-600' : 'text-gray-500 group-hover:text-gray-700'
           )}
           aria-hidden="true"
         />
-        {item.name}
+        <span className="truncate">{item.name}</span>
       </Link>
     );
   };
@@ -85,12 +82,12 @@ export function DashboardSidebar() {
           variant="ghost"
           size="sm"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="p-2"
+          className="p-2 bg-white shadow-sm border border-gray-200 hover:bg-gray-50"
         >
           {mobileMenuOpen ? (
-            <X className="h-6 w-6" />
+            <X className="h-5 w-5 text-gray-600" />
           ) : (
-            <Menu className="h-6 w-6" />
+            <Menu className="h-5 w-5 text-gray-600" />
           )}
         </Button>
       </div>
@@ -106,29 +103,34 @@ export function DashboardSidebar() {
       {/* Sidebar */}
       <div
         className={cn(
-          'fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out lg:transform-none lg:static lg:inset-0',
+          'fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-xl border-r border-gray-200 transform transition-transform duration-300 ease-in-out lg:transform-none lg:static lg:inset-0',
           mobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         )}
       >
         <div className="flex flex-col h-full">
           {/* Logo */}
           <div className="flex items-center px-4 py-4 border-b border-gray-200 lg:hidden">
-            <h1 className="text-xl font-bold text-blue-600">Nexus AI</h1>
+            <Logo size="md" />
+          </div>
+
+          {/* Desktop Logo */}
+          <div className="hidden lg:flex items-center px-4 py-6 border-b border-gray-100">
+            <Logo size="md" />
           </div>
 
           {/* Navigation */}
-          <nav className="flex-1 px-2 py-4 space-y-1 overflow-y-auto">
+          <nav className="flex-1 px-3 py-6 space-y-2 overflow-y-auto">
             <div className="space-y-1">
               {navigation.map((item) => (
                 <NavLink key={item.name} item={item} />
               ))}
             </div>
 
-            <div className="pt-6">
-              <h3 className="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+            <div className="pt-8">
+              <h3 className="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">
                 Management
               </h3>
-              <div className="mt-2 space-y-1">
+              <div className="space-y-1">
                 {managementNavigation.map((item) => (
                   <NavLink key={item.name} item={item} />
                 ))}
@@ -137,9 +139,9 @@ export function DashboardSidebar() {
           </nav>
 
           {/* Usage Info */}
-          <div className="flex-shrink-0 p-4 border-t border-gray-200">
-            <div className="bg-blue-50 rounded-lg p-3">
-              <div className="flex items-center justify-between">
+          <div className="flex-shrink-0 p-4 border-t border-gray-100">
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 shadow-sm">
+              <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
                     <CreditCard className="h-5 w-5 text-blue-600" />
@@ -150,16 +152,14 @@ export function DashboardSidebar() {
                   </div>
                 </div>
               </div>
-              <div className="mt-2">
-                <div className="bg-blue-200 rounded-full h-1.5">
-                  <div className="bg-blue-600 h-1.5 rounded-full" style={{ width: '25%' }} />
+              <div className="mb-3">
+                <div className="bg-blue-200 rounded-full h-2">
+                  <div className="bg-blue-600 h-2 rounded-full transition-all duration-300" style={{ width: '25%' }} />
                 </div>
               </div>
-              <div className="mt-2">
-                <Button size="sm" className="w-full text-xs">
-                  Upgrade Plan
-                </Button>
-              </div>
+              <Button size="sm" className="w-full text-xs bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors">
+                Upgrade Plan
+              </Button>
             </div>
           </div>
         </div>

@@ -1,8 +1,8 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  // Docker optimization: Enable standalone mode for container deployment
-  output: 'standalone',
+  // Docker optimization: Enable standalone mode for container deployment (disabled for dev)
+  // output: 'standalone',
   
   // Performance optimizations
   experimental: {

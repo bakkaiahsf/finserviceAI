@@ -19,6 +19,8 @@ export default function SignInPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirectTo = searchParams.get('redirect') || '/dashboard';
+  const authError = searchParams.get('error');
+  const authMessage = searchParams.get('message');
 
   const handleEmailSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,21 +41,51 @@ export default function SignInPage() {
     setLoading(true);
     setError(null);
     
-    const { error } = await signInWithGoogle();
-    
-    if (error) {
-      setError(error.message);
+    try {
+      const { error } = await signInWithGoogle();
+      
+      if (error) {
+        console.error('Google sign-in error:', error);
+        setError(`Google sign-in failed: ${error.message}`);
+        setLoading(false);
+      }
+      // For Google OAuth, the redirect happens automatically on success
+    } catch (err) {
+      console.error('Unexpected Google sign-in error:', err);
+      setError('An unexpected error occurred during Google sign-in');
       setLoading(false);
     }
-    // For Google OAuth, the redirect happens automatically
   };
+
+  // Handle auth errors from URL params
+  React.useEffect(() => {
+    if (authError) {
+      let errorMessage = 'Authentication failed';
+      
+      switch (authError) {
+        case 'auth_callback_error':
+          errorMessage = authMessage ? decodeURIComponent(authMessage) : 'OAuth callback failed';
+          break;
+        case 'unexpected_error':
+          errorMessage = 'An unexpected error occurred during authentication';
+          break;
+        case 'no_code':
+          errorMessage = 'Authentication was cancelled or failed';
+          break;
+        default:
+          errorMessage = 'Authentication failed';
+      }
+      
+      setError(errorMessage);
+    }
+  }, [authError, authMessage]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold text-center">
-            Sign in to Nexus AI
+            Sign in to BRITS-AI
           </CardTitle>
           <CardDescription className="text-center">
             Access your UK business intelligence dashboard

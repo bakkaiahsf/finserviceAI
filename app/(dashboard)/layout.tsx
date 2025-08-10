@@ -1,6 +1,10 @@
 'use client';
 
 import { useAuth } from '@/lib/auth/auth-context';
+
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { DashboardSidebar } from '@/components/dashboard/dashboard-sidebar';
@@ -16,7 +20,7 @@ export default function DashboardLayout({
 
   useEffect(() => {
     if (!loading && !user) {
-      router.push('/sign-in?redirect=/dashboard');
+      router.push('/signin?redirect=/dashboard');
     }
   }, [user, loading, router]);
 
@@ -25,7 +29,7 @@ export default function DashboardLayout({
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="flex flex-col items-center space-y-4">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-          <p className="text-gray-600">Loading Nexus AI...</p>
+          <p className="text-gray-600">Loading BRITS-AI...</p>
         </div>
       </div>
     );
@@ -40,8 +44,8 @@ export default function DashboardLayout({
       <DashboardHeader />
       <div className="flex">
         <DashboardSidebar />
-        <main className="flex-1 lg:pl-64">
-          <div className="px-4 sm:px-6 lg:px-8 py-6">
+        <main className="flex-1 min-w-0">
+          <div className="px-4 sm:px-6 lg:px-8 py-6 lg:py-8 max-w-7xl mx-auto">
             {children}
           </div>
         </main>

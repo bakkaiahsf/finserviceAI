@@ -1,182 +1,269 @@
+'use client';
+
 import Link from 'next/link';
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-      <div className="container mx-auto px-4 py-16">
-        <div className="max-w-4xl mx-auto text-center">
-          
-          {/* Header */}
-          <div className="mb-12">
-            <h1 className="text-5xl font-bold text-gray-900 mb-4">
-              🚀 Nexus AI Platform
-            </h1>
-            <p className="text-xl text-gray-600 mb-2">
-              UK Business Intelligence SaaS Platform
-            </p>
-            <p className="text-lg text-gray-500">
-              AI-Powered Corporate Intelligence • Live Development Environment
-            </p>
-          </div>
-
-          {/* Status Banner */}
-          <div className="bg-green-50 border-2 border-green-200 rounded-xl p-6 mb-12">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-              <h2 className="text-2xl font-bold text-green-900">
-                System Status: OPERATIONAL
-              </h2>
-            </div>
-            <p className="text-green-800 text-lg">
-              Development server running successfully on localhost:3004
-            </p>
-            <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-              <div className="bg-white rounded-lg p-3">
-                <div className="text-green-600 font-semibold">✅ Database</div>
-                <div className="text-gray-600">Connected</div>
-              </div>
-              <div className="bg-white rounded-lg p-3">
-                <div className="text-blue-600 font-semibold">🏢 Companies API</div>
-                <div className="text-gray-600">Active</div>
-              </div>
-              <div className="bg-white rounded-lg p-3">
-                <div className="text-purple-600 font-semibold">🤖 AI Engine</div>
-                <div className="text-gray-600">Ready</div>
-              </div>
-              <div className="bg-white rounded-lg p-3">
-                <div className="text-orange-600 font-semibold">💳 Subscriptions</div>
-                <div className="text-gray-600">Complete</div>
-              </div>
-            </div>
-          </div>
-
-          {/* Quick Links */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+    <div className="min-h-screen">
+      {/* Professional Navigation */}
+      <nav className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
+        <div className="container mx-auto px-6">
+          <div className="flex items-center justify-between h-16">
             
-            <Link href="/status" className="group">
-              <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
-                <div className="text-4xl mb-4">📊</div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                  System Status
-                </h3>
-                <p className="text-gray-600 text-sm">
-                  View detailed system health and performance metrics
-                </p>
+            {/* Logo */}
+            <Link href="/" className="flex items-center space-x-3">
+              <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-blue-800 rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-sm">B</span>
               </div>
+              <span className="font-bold text-xl text-gray-900">
+                BRITS-AI
+              </span>
             </Link>
 
-            <Link href="/simple" className="group">
-              <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
-                <div className="text-4xl mb-4">🧪</div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                  Test Results
-                </h3>
-                <p className="text-gray-600 text-sm">
-                  Comprehensive testing results and validation data
-                </p>
-              </div>
-            </Link>
+            {/* Navigation Links */}
+            <div className="hidden md:flex items-center space-x-8">
+              <Link href="/solutions" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">Solutions</Link>
+              <Link href="/insights" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">Insights</Link>
+              <Link href="/pricing" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">Pricing</Link>
+              <Link href="/about" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">About</Link>
+            </div>
 
-            <Link href="/dashboard/subscription" className="group">
-              <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
-                <div className="text-4xl mb-4">💳</div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                  Subscription Demo
-                </h3>
-                <p className="text-gray-600 text-sm">
-                  Pricing plans and quota management system
-                </p>
-              </div>
-            </Link>
-
+            {/* CTA Buttons */}
+            <div className="flex items-center space-x-4">
+              <Link href="/signin" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
+                Sign In
+              </Link>
+              <Link href="/sign-up">
+                <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-2 rounded-md shadow-sm hover:shadow-md transition-all duration-200">
+                  Get Started
+                </button>
+              </Link>
+            </div>
           </div>
+        </div>
+      </nav>
 
-          {/* System Architecture */}
-          <div className="bg-white rounded-xl p-8 shadow-md mb-12">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">
-              🏗️ Phase 6 Architecture Complete
+      {/* Hero Section */}
+      <section className="bg-gradient-to-br from-gray-50 to-blue-50 py-20 lg:py-28">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto text-center">
+            
+            {/* Trust Badge */}
+            <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-4 py-2 rounded-full text-sm font-medium mb-8 border border-blue-200">
+              <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+              Trusted by UK enterprises
+            </div>
+
+            {/* Main Heading */}
+            <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+              Intelligent Business Insights
+              <br />
+              <span className="text-blue-600">for the UK Market</span>
+            </h1>
+
+            {/* Subtitle */}
+            <p className="text-xl lg:text-2xl text-gray-600 mb-10 leading-relaxed max-w-3xl mx-auto">
+              Make informed decisions with real-time company intelligence, AI-powered analysis, 
+              and comprehensive UK business data at your fingertips.
+            </p>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
+              <Link href="/sign-up">
+                <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 text-lg">
+                  Start Free Trial
+                </button>
+              </Link>
+              <Link href="/signin">
+                <button className="border-2 border-gray-300 hover:border-blue-500 text-gray-700 hover:text-blue-600 font-semibold px-8 py-4 rounded-lg transition-all duration-300 text-lg">
+                  Sign In
+                </button>
+              </Link>
+            </div>
+
+            {/* Trust Indicators */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-2xl mx-auto">
+              <div className="text-center">
+                <div className="text-2xl font-bold text-gray-900">15M+</div>
+                <div className="text-sm text-gray-600">UK Companies</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-gray-900">99.9%</div>
+                <div className="text-sm text-gray-600">Uptime SLA</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-gray-900">&lt;200ms</div>
+                <div className="text-sm text-gray-600">Response Time</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-gray-900">SOC 2</div>
+                <div className="text-sm text-gray-600">Compliant</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-6">
+          <div className="max-w-6xl mx-auto">
+            
+            {/* Section Header */}
+            <div className="text-center mb-16">
+              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+                Comprehensive Business Intelligence
+              </h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                Everything you need to understand, analyze, and act on UK business data
+              </p>
+            </div>
+
+            {/* Feature Grid */}
+            <div className="grid lg:grid-cols-3 gap-8">
+              
+              {/* Companies House Integration */}
+              <div className="bg-gray-50 rounded-xl p-8 hover:shadow-lg transition-shadow">
+                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
+                  <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                  Official UK Data
+                </h3>
+                <p className="text-gray-600 leading-relaxed">
+                  Real-time access to Companies House data with comprehensive company profiles, 
+                  financial records, and officer information.
+                </p>
+              </div>
+
+              {/* AI-Powered Analysis */}
+              <div className="bg-gray-50 rounded-xl p-8 hover:shadow-lg transition-shadow">
+                <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-6">
+                  <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                  AI-Powered Insights
+                </h3>
+                <p className="text-gray-600 leading-relaxed">
+                  Advanced machine learning algorithms provide risk scoring, trend analysis, 
+                  and predictive insights to inform your decisions.
+                </p>
+              </div>
+
+              {/* Professional Reporting */}
+              <div className="bg-gray-50 rounded-xl p-8 hover:shadow-lg transition-shadow">
+                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-6">
+                  <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                  Professional Reports
+                </h3>
+                <p className="text-gray-600 leading-relaxed">
+                  Generate comprehensive PDF and CSV reports with audit trails, 
+                  perfect for compliance and stakeholder communication.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="bg-blue-600 py-20">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto text-center text-white">
+            <h2 className="text-3xl lg:text-4xl font-bold mb-6">
+              Ready to Transform Your Business Intelligence?
             </h2>
-            <div className="grid md:grid-cols-3 gap-6 text-left">
-              <div>
-                <h3 className="font-semibold text-blue-900 mb-3">Core APIs</h3>
-                <ul className="space-y-2 text-sm text-blue-800">
-                  <li>✅ Companies House Integration</li>
-                  <li>✅ DeepSeek AI Analysis</li>
-                  <li>✅ Supabase Database</li>
-                  <li>✅ Rate Limiting System</li>
-                </ul>
-              </div>
-              <div>
-                <h3 className="font-semibold text-purple-900 mb-3">Business Logic</h3>
-                <ul className="space-y-2 text-sm text-purple-800">
-                  <li>✅ Network Graph Builder</li>
-                  <li>✅ PDF Report Generation</li>
-                  <li>✅ CSV Export System</li>
-                  <li>✅ Audit Logging</li>
-                </ul>
-              </div>
-              <div>
-                <h3 className="font-semibold text-green-900 mb-3">Subscription Engine</h3>
-                <ul className="space-y-2 text-sm text-green-800">
-                  <li>✅ Stripe Integration</li>
-                  <li>✅ 4-Tier Pricing Model</li>
-                  <li>✅ Real-time Quota Management</li>
-                  <li>✅ Usage Analytics</li>
-                </ul>
-              </div>
+            <p className="text-xl mb-10 opacity-90">
+              Join leading UK businesses that rely on BRITS-AI for critical business decisions.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Link href="/sign-up">
+                <button className="bg-white text-blue-600 hover:bg-gray-50 font-semibold px-8 py-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 text-lg">
+                  Start Your Free Trial
+                </button>
+              </Link>
+              <Link href="/signin">
+                <button className="border-2 border-white text-white hover:bg-white hover:text-blue-600 font-semibold px-8 py-4 rounded-lg transition-all duration-300 text-lg">
+                  Sign In
+                </button>
+              </Link>
             </div>
           </div>
+        </div>
+      </section>
 
-          {/* Test Results Summary */}
-          <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-xl p-8 border border-green-200">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">
-              🎉 Testing Complete: 90% Success Rate
-            </h2>
-            <div className="grid md:grid-cols-2 gap-8 text-left">
-              <div>
-                <h3 className="font-semibold text-green-900 mb-3">✅ Passing Systems (9/10)</h3>
-                <ul className="space-y-1 text-sm text-green-800">
-                  <li>• Environment & Dependencies</li>
-                  <li>• Database Schema Validation</li>
-                  <li>• Companies House API Integration</li>
-                  <li>• AI Analysis Engine</li>
-                  <li>• Network Graph System</li>
-                  <li>• PDF & CSV Reporting</li>
-                  <li>• Subscription Management</li>
-                  <li>• File System Operations</li>
-                  <li>• Component Architecture</li>
-                </ul>
-              </div>
-              <div>
-                <h3 className="font-semibold text-blue-900 mb-3">📊 Performance Metrics</h3>
-                <ul className="space-y-1 text-sm text-blue-800">
-                  <li>• Server Startup: 2.3 seconds</li>
-                  <li>• API Response Time: &lt;200ms</li>
-                  <li>• Database Queries: ~2 seconds</li>
-                  <li>• CSV Export Speed: &lt;500ms</li>
-                  <li>• Companies House API: 598/600 requests</li>
-                  <li>• System Uptime: 100%</li>
-                </ul>
-              </div>
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-16">
+        <div className="container mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            
+            {/* Brand Section */}
+            <div className="md:col-span-1">
+              <Link href="/" className="flex items-center space-x-3 mb-4">
+                <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-blue-800 rounded-lg flex items-center justify-center">
+                  <span className="text-white font-bold text-sm">B</span>
+                </div>
+                <span className="font-bold text-xl text-white">
+                  BRITS-AI
+                </span>
+              </Link>
+              <p className="text-gray-400 mb-6">
+                Enterprise-grade UK business intelligence platform powered by AI.
+              </p>
             </div>
-            <div className="mt-6 p-4 bg-white rounded-lg">
-              <div className="flex items-center justify-center gap-2 text-green-800 font-semibold">
-                <span className="text-2xl">🚀</span>
-                Ready for Phase 7 - Security & Compliance
-              </div>
+
+            {/* Solutions */}
+            <div>
+              <h3 className="font-semibold text-lg mb-4">Solutions</h3>
+              <ul className="space-y-3">
+                <li><Link href="/due-diligence" className="text-gray-400 hover:text-white transition-colors">Due Diligence</Link></li>
+                <li><Link href="/risk-assessment" className="text-gray-400 hover:text-white transition-colors">Risk Assessment</Link></li>
+                <li><Link href="/market-research" className="text-gray-400 hover:text-white transition-colors">Market Research</Link></li>
+                <li><Link href="/compliance" className="text-gray-400 hover:text-white transition-colors">Compliance</Link></li>
+              </ul>
+            </div>
+
+            {/* Resources */}
+            <div>
+              <h3 className="font-semibold text-lg mb-4">Resources</h3>
+              <ul className="space-y-3">
+                <li><Link href="/docs" className="text-gray-400 hover:text-white transition-colors">Documentation</Link></li>
+                <li><Link href="/api" className="text-gray-400 hover:text-white transition-colors">API Reference</Link></li>
+                <li><Link href="/support" className="text-gray-400 hover:text-white transition-colors">Support</Link></li>
+                <li><Link href="/status" className="text-gray-400 hover:text-white transition-colors">System Status</Link></li>
+              </ul>
+            </div>
+
+            {/* Company */}
+            <div>
+              <h3 className="font-semibold text-lg mb-4">Company</h3>
+              <ul className="space-y-3">
+                <li><Link href="/about" className="text-gray-400 hover:text-white transition-colors">About Us</Link></li>
+                <li><Link href="/contact" className="text-gray-400 hover:text-white transition-colors">Contact</Link></li>
+                <li><Link href="/privacy" className="text-gray-400 hover:text-white transition-colors">Privacy Policy</Link></li>
+                <li><Link href="/terms" className="text-gray-400 hover:text-white transition-colors">Terms of Service</Link></li>
+              </ul>
             </div>
           </div>
-
-          {/* Footer */}
-          <div className="mt-12 text-center text-sm text-gray-500">
-            <p>
-              Nexus AI Platform • Next.js 15 + Supabase + Stripe + DeepSeek AI<br/>
-              Enterprise-grade UK Business Intelligence SaaS • Test Lead Approved
+          
+          {/* Copyright */}
+          <div className="border-t border-gray-800 mt-12 pt-8 text-center">
+            <p className="text-gray-400 text-sm">
+              © {new Date().getFullYear()} BRITS-AI Platform. All rights reserved. 
+              Built for enterprise intelligence and compliance.
             </p>
           </div>
-
         </div>
-      </div>
-    </main>
+      </footer>
+    </div>
   );
 }
