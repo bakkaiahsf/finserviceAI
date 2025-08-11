@@ -68,7 +68,6 @@ export async function POST(request: NextRequest) {
       user_agent: userAgent,
       session_id: sessionId,
       success: true,
-      severity: body.consent_given ? 'info' : 'warning' // Withdrawal is more significant
     });
 
     return NextResponse.json({
@@ -115,7 +114,6 @@ export async function POST(request: NextRequest) {
         },
         success: false,
         error_message: error instanceof Error ? error.message : 'Consent processing failed',
-        severity: 'critical'
       });
     } catch (logError) {
       console.error('Failed to log GDPR consent error:', logError);
@@ -188,7 +186,6 @@ export async function DELETE(request: NextRequest) {
       user_agent: userAgent,
       session_id: sessionId,
       success: true,
-      severity: 'warning'
     });
 
     return NextResponse.json({

@@ -23,7 +23,7 @@ import {
   type NewSearchHistory,
   type NewQuotaCounter,
 } from './schema-nexus';
-import { eq, and, desc, count, gte, lte, ilike, or, isNull } from 'drizzle-orm';
+import { eq, and, desc, count, gte, lte, ilike, or, isNull, sql } from 'drizzle-orm';
 
 // User operations
 export async function createUser(userData: NewUser): Promise<User> {
@@ -225,7 +225,7 @@ export async function incrementSearchQuota(userId: number): Promise<QuotaCounter
   const [existingQuota] = await db
     .update(quotaCounters)
     .set({ 
-      searchesUsed: quotaCounters.searchesUsed + 1,
+      searchesUsed: sql`${quotaCounters.searchesUsed} + 1`,
       lastResetAt: new Date()
     })
     .where(
@@ -265,7 +265,7 @@ export async function incrementAITokenQuota(userId: number, tokens: number): Pro
   const [existingQuota] = await db
     .update(quotaCounters)
     .set({ 
-      aiTokensUsed: quotaCounters.aiTokensUsed + tokens,
+      aiTokensUsed: sql`${quotaCounters.aiTokensUsed} + ${tokens}`,
       lastResetAt: new Date()
     })
     .where(

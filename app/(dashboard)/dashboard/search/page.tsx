@@ -146,7 +146,7 @@ export default function CompanySearchPage() {
               company.address.locality,
               company.address.postal_code
             ].filter(Boolean).join(', ') : undefined,
-            sic_codes: company.sic_codes
+            sic_codes: (company as any).sic_codes || []
           },
           modelType: selectedModel
         })
@@ -202,10 +202,10 @@ export default function CompanySearchPage() {
 
       return {
         company_number: company.company_number,
-        risk_score: riskScores[company.company_status] || 50,
-        business_summary: businessSummaries[company.company_type]?.[0] || 'UK business entity with standard corporate structure.',
-        key_strengths: strengths[company.company_status] || strengths[company.company_type] || strengths['active'],
-        potential_risks: risks[company.company_status] || risks['active'],
+        risk_score: (riskScores as any)[company.company_status] || 50,
+        business_summary: (businessSummaries as any)[company.company_type]?.[0] || 'UK business entity with standard corporate structure.',
+        key_strengths: (strengths as any)[company.company_status] || (strengths as any)[company.company_type] || strengths['active'],
+        potential_risks: (risks as any)[company.company_status] || risks['active'],
         market_position: company.company_type === 'plc' ? 'Major Market Player' : 
                         company.company_type === 'llp' ? 'Professional Services' : 'Specialized Business',
         last_updated: new Date().toISOString(),

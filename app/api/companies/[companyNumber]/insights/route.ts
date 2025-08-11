@@ -4,12 +4,14 @@ import { deepSeekClient } from '@/lib/ai/deepseek-client';
 import { createServerSupabaseClient } from '@/lib/auth/supabase-client';
 
 interface RouteParams {
-  params: {
+  params: Promise<{
     companyNumber: string;
-  };
+  }>;
 }
 
 export async function POST(request: NextRequest, { params }: RouteParams) {
+  const { companyNumber } = await params;
+  
   try {
     // Authenticate user
     const supabase = createServerSupabaseClient();
@@ -21,8 +23,6 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
         { status: 401 }
       );
     }
-
-    const { companyNumber } = params;
 
     if (!companyNumber) {
       return NextResponse.json(

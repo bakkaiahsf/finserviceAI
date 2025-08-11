@@ -3,12 +3,14 @@ import { companiesHouseClient } from '@/lib/companies-house/client';
 import { createServerSupabaseClient } from '@/lib/auth/supabase-client';
 
 interface RouteParams {
-  params: {
+  params: Promise<{
     companyNumber: string;
-  };
+  }>;
 }
 
 export async function GET(request: NextRequest, { params }: RouteParams) {
+  const { companyNumber } = await params;
+  
   try {
     // Authenticate user
     const supabase = createServerSupabaseClient();
@@ -20,8 +22,6 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
         { status: 401 }
       );
     }
-
-    const { companyNumber } = params;
 
     if (!companyNumber) {
       return NextResponse.json(
@@ -105,7 +105,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
         return NextResponse.json(
           { 
             error: 'Officers not found',
-            message: `No officers found for company: ${params.companyNumber}`,
+            message: `No officers found for company: ${companyNumber}`,
             type: 'not_found_error'
           },
           { status: 404 }

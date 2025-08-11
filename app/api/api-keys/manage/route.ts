@@ -80,8 +80,7 @@ export async function POST(request: NextRequest) {
       ip_address: clientIP,
       user_agent: userAgent,
       session_id: sessionId,
-      success: true,
-      severity: 'info'
+      success: true
     });
 
     // Generate API key
@@ -112,8 +111,7 @@ export async function POST(request: NextRequest) {
       },
       ip_address: clientIP,
       session_id: sessionId,
-      success: true,
-      severity: 'info'
+      success: true
     });
 
     return NextResponse.json({
@@ -161,8 +159,7 @@ export async function POST(request: NextRequest) {
           error: error instanceof Error ? error.message : 'Unknown error'
         },
         success: false,
-        error_message: error instanceof Error ? error.message : 'API key creation failed',
-        severity: 'warning'
+        error_message: error instanceof Error ? error.message : 'API key creation failed'
       });
     } catch (logError) {
       console.error('Failed to log API key creation error:', logError);
@@ -205,8 +202,7 @@ export async function DELETE(request: NextRequest) {
       },
       ip_address: clientIP,
       session_id: sessionId,
-      success: true,
-      severity: 'warning'
+      success: true
     });
 
     // Revoke the API key

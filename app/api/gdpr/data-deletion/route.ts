@@ -75,7 +75,6 @@ export async function POST(request: NextRequest) {
       user_agent: userAgent,
       session_id: sessionId,
       success: true,
-      severity: 'warning' // Deletion requests are significant events
     });
 
     // Process the data deletion
@@ -98,7 +97,6 @@ export async function POST(request: NextRequest) {
       ip_address: clientIP,
       session_id: sessionId,
       success: true,
-      severity: 'critical' // Data deletion is a critical security event
     });
 
     return NextResponse.json({
@@ -145,7 +143,6 @@ export async function POST(request: NextRequest) {
         },
         success: false,
         error_message: error instanceof Error ? error.message : 'Deletion processing failed',
-        severity: 'critical'
       });
     } catch (logError) {
       console.error('Failed to log GDPR deletion error:', logError);

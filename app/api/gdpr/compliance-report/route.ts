@@ -143,8 +143,7 @@ export async function POST(request: NextRequest) {
         gdpr_article: 'Article 5(2) - Accountability'
       },
       success: false,
-      error_message: error instanceof Error ? error.message : 'Report generation failed',
-      severity: 'critical'
+      error_message: error instanceof Error ? error.message : 'Report generation failed'
     });
 
     return NextResponse.json(

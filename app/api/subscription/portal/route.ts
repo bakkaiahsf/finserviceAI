@@ -54,8 +54,9 @@ export async function POST(request: NextRequest) {
         session_id: session.id,
         current_plan: team.plan_name || 'free'
       },
-      ip_address: request.ip || 'unknown',
-      user_agent: request.headers.get('user-agent') || 'unknown'
+      ip_address: request.headers.get('x-forwarded-for') || 'unknown',
+      user_agent: request.headers.get('user-agent') || 'unknown',
+      success: true
     });
 
     return NextResponse.json({ 

@@ -41,7 +41,6 @@ export async function POST(request: NextRequest) {
       user_agent: userAgent,
       session_id: sessionId,
       success: true,
-      severity: 'info'
     });
 
     // Perform threat detection
@@ -109,9 +108,7 @@ export async function POST(request: NextRequest) {
       },
       ip_address: clientIP,
       session_id: sessionId,
-      success: true,
-      severity: threatStats.by_severity.critical > 0 ? 'critical' : 
-                threatStats.by_severity.high > 0 ? 'warning' : 'info'
+      success: true
     });
 
     return NextResponse.json({
@@ -155,7 +152,6 @@ export async function POST(request: NextRequest) {
         },
         success: false,
         error_message: error instanceof Error ? error.message : 'Security scan failed',
-        severity: 'critical'
       });
     } catch (logError) {
       console.error('Failed to log security scan error:', logError);

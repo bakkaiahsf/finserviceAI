@@ -35,12 +35,15 @@ type AuditAction =
   | 'api_key_create' | 'api_key_revoke' | 'rate_limit_exceeded'
   | 'data_export' | 'data_import' | 'backup_create'
   | 'settings_update' | 'profile_update' | 'team_invite'
-  | 'compliance_check' | 'gdpr_request' | 'data_deletion';
+  | 'compliance_check' | 'gdpr_request' | 'data_deletion'
+  | 'billing_portal_accessed' | 'checkout_initiated' | 'webhook_processed' | 'webhook_error'
+  | 'security_scan_initiated' | 'security_scan_complete' | 'security_metrics_requested' | 'security_metrics_generated'
+  | 'security_alert_triggered' | 'consent_update' | 'api_key_analytics_viewed';
 
 type ResourceType = 
   | 'user' | 'company' | 'officer' | 'psc' | 'report' | 'export'
   | 'network' | 'ai_analysis' | 'subscription' | 'team' | 'api_key'
-  | 'session' | 'setting' | 'backup' | 'compliance_record';
+  | 'session' | 'setting' | 'backup' | 'compliance_record' | 'security_system';
 
 interface AuditQuery {
   user_id?: string;
@@ -383,7 +386,7 @@ class AuditLogger {
 
     // Daily activity
     const dailyActivity = data.reduce((acc, event) => {
-      const date = event.created_at.split('T')[0];
+      const date = (event as any).created_at.split('T')[0];
       acc[date] = (acc[date] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
@@ -542,7 +545,7 @@ class AuditLogger {
     await this.logEvent({
       user_id: 'system',
       action: 'data_deletion',
-      resource_type: 'audit_logs',
+      resource_type: 'user',
       details: {
         retention_days: retentionDays,
         records_deleted: count || 0,

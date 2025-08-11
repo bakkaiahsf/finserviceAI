@@ -1,5 +1,4 @@
 {
-  "name": "nexus-ai",
   "version": 2,
   "buildCommand": "npm run build",
   "outputDirectory": ".next",
@@ -36,9 +35,6 @@
       "permanent": true
     }
   ],
-  "env": {
-    "NEXT_PUBLIC_APP_URL": "@nexus-ai-url"
-  },
   "build": {
     "env": {
       "NODE_ENV": "production"

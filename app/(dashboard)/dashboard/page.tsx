@@ -2,9 +2,7 @@
 
 import { useAuth } from '@/lib/auth/auth-context';
 
-// Force dynamic rendering
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+// Client-side dashboard page
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import {

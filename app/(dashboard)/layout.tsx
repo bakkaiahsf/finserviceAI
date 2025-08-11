@@ -2,9 +2,7 @@
 
 import { useAuth } from '@/lib/auth/auth-context';
 
-// Force dynamic rendering
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+// Force dynamic rendering for client component
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { DashboardSidebar } from '@/components/dashboard/dashboard-sidebar';

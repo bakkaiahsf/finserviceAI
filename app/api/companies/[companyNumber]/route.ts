@@ -3,12 +3,14 @@ import { companiesHouseClient } from '@/lib/companies-house/client';
 import { createServerSupabaseClient } from '@/lib/auth/supabase-client';
 
 interface RouteParams {
-  params: {
+  params: Promise<{
     companyNumber: string;
-  };
+  }>;
 }
 
 export async function GET(request: NextRequest, { params }: RouteParams) {
+  const { companyNumber } = await params;
+  
   try {
     // TEMPORARILY BYPASSED: Authentication disabled for testing core functionality
     // const supabase = createServerSupabaseClient();
@@ -23,8 +25,6 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
 
     // Mock user for rate limiting (since we bypassed auth)
     const user = { id: 'test-user-123' };
-
-    const { companyNumber } = await params;
 
     if (!companyNumber) {
       return NextResponse.json(
@@ -71,7 +71,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
         return NextResponse.json(
           { 
             error: 'Company not found',
-            message: `No company found with number: ${params.companyNumber}`,
+            message: `No company found with number: ${companyNumber}`,
             type: 'not_found_error'
           },
           { status: 404 }

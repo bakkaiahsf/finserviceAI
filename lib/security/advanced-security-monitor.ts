@@ -204,8 +204,7 @@ class AdvancedSecurityMonitor {
           analysis_timestamp: new Date().toISOString(),
           system_security_status: threats.length === 0 ? 'secure' : 'threats_detected'
         },
-        success: true,
-        severity: threats.length > 0 ? 'warning' : 'info'
+        success: true
       });
 
       return threats;
@@ -221,7 +220,6 @@ class AdvancedSecurityMonitor {
           error: error instanceof Error ? error.message : 'Unknown error'
         },
         success: false,
-        severity: 'critical',
         error_message: error instanceof Error ? error.message : 'Threat detection failed'
       });
 
@@ -363,7 +361,7 @@ class AdvancedSecurityMonitor {
           threat_type: 'brute_force_attack',
           severity_level: 'high',
           detection_timestamp: now.toISOString(),
-          threat_indicators: ['multiple_failed_logins', 'credential_stuffing'],
+          threat_indicators: ['multiple_failed_logins'],
           risk_score: 85,
           confidence_score: 0.95,
           mitigation_status: 'detected',
@@ -465,8 +463,7 @@ class AdvancedSecurityMonitor {
           escalation_required: alert.escalation_required,
           auto_mitigation: alert.auto_mitigation_applied
         },
-        success: true,
-        severity: alert.priority === 'emergency' ? 'critical' : 'warning'
+        success: true
       });
     }
 

@@ -89,8 +89,9 @@ export async function POST(request: NextRequest) {
         trial_days: trialDays,
         session_id: session.id
       },
-      ip_address: request.ip || 'unknown',
-      user_agent: request.headers.get('user-agent') || 'unknown'
+      ip_address: request.headers.get('x-forwarded-for') || 'unknown',
+      user_agent: request.headers.get('user-agent') || 'unknown',
+      success: true
     });
 
     return NextResponse.json({ 

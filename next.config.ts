@@ -4,12 +4,12 @@ const nextConfig: NextConfig = {
   // Docker optimization: Enable standalone mode for container deployment (disabled for dev)
   // output: 'standalone',
   
-  // Performance optimizations
-  experimental: {
-    ppr: true,
-    clientSegmentCache: true,
-    nodeMiddleware: true
-  },
+  // Performance optimizations (temporarily disabled for debugging)
+  // experimental: {
+  //   ppr: true,
+  //   clientSegmentCache: true,
+  //   nodeMiddleware: true
+  // },
 
   // Production optimizations
   poweredByHeader: false,

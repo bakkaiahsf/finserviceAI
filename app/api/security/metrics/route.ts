@@ -120,7 +120,6 @@ export async function POST(request: NextRequest) {
         },
         success: false,
         error_message: error instanceof Error ? error.message : 'Metrics generation failed',
-        severity: 'critical'
       });
     } catch (logError) {
       console.error('Failed to log security metrics error:', logError);

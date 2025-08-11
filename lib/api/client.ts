@@ -168,16 +168,16 @@ import { useState, useEffect } from 'react';
 export function useSystemStatus() {
   const [status, setStatus] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchStatus = async () => {
       try {
         const response = await apiClient.getSystemStatus();
         if (response.success) {
-          setStatus(response.data);
+          setStatus(response.data as any);
         } else {
-          setError(response.error);
+          setError(response.error || null);
         }
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Unknown error');
@@ -198,24 +198,24 @@ export function useSystemStatus() {
 export function useSubscriptionQuota() {
   const [quota, setQuota] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchQuota = async () => {
+    try {
+      const response = await apiClient.getUsageQuota();
+      if (response.success) {
+        setQuota(response.data as any);
+      } else {
+        setError(response.error || null);
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Unknown error');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchQuota = async () => {
-      try {
-        const response = await apiClient.getUsageQuota();
-        if (response.success) {
-          setQuota(response.data);
-        } else {
-          setError(response.error);
-        }
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Unknown error');
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchQuota();
   }, []);
 

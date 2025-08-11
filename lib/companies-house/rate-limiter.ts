@@ -89,7 +89,7 @@ class CompaniesHouseRateLimiter {
     const status = await this.checkRateLimit(key);
     
     if (!status.allowed && status.retryAfter) {
-      await new Promise(resolve => setTimeout(resolve, status.retryAfter * 1000));
+      await new Promise(resolve => setTimeout(resolve, (status.retryAfter || 1) * 1000));
     }
   }
 

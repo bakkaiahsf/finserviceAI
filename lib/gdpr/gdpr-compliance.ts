@@ -543,7 +543,7 @@ class GDPRComplianceManager {
       await auditLogger.logEvent({
         user_id: 'system',
         action: 'data_deletion',
-        resource_type: 'audit_logs',
+        resource_type: 'user',
         resource_id: 'retention_cleanup',
         details: {
           cleanup_type: 'automated_retention',

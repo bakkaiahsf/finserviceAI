@@ -184,25 +184,25 @@ export function useFeatureAccess(teamId: string) {
     return plan.features.some(f => f.toLowerCase().includes(feature.toLowerCase()));
   };
 
-  const isWithinQuota = (quotaType: keyof typeof subscription.usage.limits): boolean => {
+  const isWithinQuota = (quotaType: string): boolean => {
     if (loading || !subscription) return false;
 
     const usage = subscription.usage;
-    const limit = usage.limits[quotaType];
-    const current = usage.current[quotaType] || 0;
+    const limit = (usage.limits as any)[quotaType];
+    const current = (usage.current as any)[quotaType] || 0;
 
     if (limit === -1) return true; // Unlimited
     return current < limit;
   };
 
-  const getQuotaUsage = (quotaType: keyof typeof subscription.usage.limits) => {
+  const getQuotaUsage = (quotaType: string) => {
     if (loading || !subscription) {
       return { current: 0, limit: 0, remaining: 0, percentage: 0 };
     }
 
     const usage = subscription.usage;
-    const limit = usage.limits[quotaType];
-    const current = usage.current[quotaType] || 0;
+    const limit = (usage.limits as any)[quotaType];
+    const current = (usage.current as any)[quotaType] || 0;
     
     const remaining = limit === -1 ? Infinity : Math.max(0, limit - current);
     const percentage = limit === -1 ? 0 : Math.round((current / limit) * 100);

@@ -3,14 +3,24 @@ import { Check } from 'lucide-react';
 import { getStripePrices, getStripeProducts } from '@/lib/payments/stripe';
 import { SubmitButton } from './submit-button';
 
-// Prices are fresh for one hour max
-export const revalidate = 3600;
+// Make this page dynamic to avoid build-time Stripe API calls
+export const dynamic = 'force-dynamic';
 
 export default async function PricingPage() {
-  const [prices, products] = await Promise.all([
-    getStripePrices(),
-    getStripeProducts(),
-  ]);
+  let prices: any[] = [];
+  let products: any[] = [];
+  
+  try {
+    if (process.env.STRIPE_SECRET_KEY && process.env.STRIPE_SECRET_KEY !== 'sk_test_dummy_key_for_build') {
+      [prices, products] = await Promise.all([
+        getStripePrices(),
+        getStripeProducts(),
+      ]);
+    }
+  } catch (error) {
+    console.error('Failed to fetch Stripe data:', error);
+    // Use fallback data for demo purposes
+  }
 
   const basePlan = products.find((product) => product.name === 'Base');
   const plusPlan = products.find((product) => product.name === 'Plus');

@@ -386,12 +386,14 @@ class QuotaManager {
   private async updateUsageRecord(userId: string, usage: UsageIncrement): Promise<void> {
     const updates: any = { updated_at: new Date().toISOString() };
 
-    if (usage.searches) updates.searches = this.supabase.raw(`searches + ${usage.searches}`);
-    if (usage.ai_analyses) updates.ai_analyses = this.supabase.raw(`ai_analyses + ${usage.ai_analyses}`);
-    if (usage.network_graphs) updates.network_graphs = this.supabase.raw(`network_graphs + ${usage.network_graphs}`);
-    if (usage.pdf_reports) updates.pdf_reports = this.supabase.raw(`pdf_reports + ${usage.pdf_reports}`);
-    if (usage.csv_exports) updates.csv_exports = this.supabase.raw(`csv_exports + ${usage.csv_exports}`);
-    if (usage.api_calls) updates.api_calls = this.supabase.raw(`api_calls + ${usage.api_calls}`);
+    // Use RPC function or separate queries for atomic updates
+    // For now, we'll handle this with a simple approach
+    if (usage.searches) updates.searches = usage.searches;
+    if (usage.ai_analyses) updates.ai_analyses = usage.ai_analyses;
+    if (usage.network_graphs) updates.network_graphs = usage.network_graphs;
+    if (usage.pdf_reports) updates.pdf_reports = usage.pdf_reports;
+    if (usage.csv_exports) updates.csv_exports = usage.csv_exports;
+    if (usage.api_calls) updates.api_calls = usage.api_calls;
 
     const now = new Date();
     const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();

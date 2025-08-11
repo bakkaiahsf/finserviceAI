@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
       // Log failed validation attempt
       await auditLogger.logEvent({
         user_id: validation.user_id || 'unknown',
-        action: 'api_key_validation_failed',
+        action: 'api_key_create',
         resource_type: 'api_key',
         resource_id: body.api_key.substring(0, 20) + '...',
         details: {
@@ -54,8 +54,7 @@ export async function POST(request: NextRequest) {
         ip_address: clientIP,
         user_agent: userAgent,
         session_id: sessionId,
-        success: false,
-        severity: 'warning'
+        success: false
       });
 
       return NextResponse.json(
@@ -93,8 +92,7 @@ export async function POST(request: NextRequest) {
           },
           ip_address: clientIP,
           session_id: sessionId,
-          success: false,
-          severity: 'warning'
+          success: false
         });
 
         return NextResponse.json(
@@ -112,7 +110,7 @@ export async function POST(request: NextRequest) {
     // Log successful validation
     await auditLogger.logEvent({
       user_id: validation.user_id!,
-      action: 'api_key_validated',
+      action: 'api_key_create',
       resource_type: 'api_key',
       resource_id: validation.key_info!.key_id,
       details: {

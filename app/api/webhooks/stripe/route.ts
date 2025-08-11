@@ -1,4 +1,3 @@
-import { headers } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import { stripeService } from '@/lib/stripe/stripe-client';
 import { quotaManager } from '@/lib/quota/quota-manager';
@@ -10,7 +9,7 @@ const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 export async function POST(request: NextRequest) {
   try {
     const body = await request.text();
-    const signature = headers().get('stripe-signature');
+    const signature = request.headers.get('stripe-signature');
 
     if (!signature) {
       console.error('Missing stripe-signature header');
@@ -41,17 +40,18 @@ export async function POST(request: NextRequest) {
 
     // Log successful webhook processing
     await auditLogger.logEvent({
-      user_id: null, // System event
+      user_id: 'system', // System event
       action: 'webhook_processed',
-      resource_type: 'stripe_webhook',
+      resource_type: 'subscription',
       resource_id: result.event.id,
       details: {
         event_type: result.event.type,
         action: result.action,
         processed_at: new Date().toISOString()
       },
-      ip_address: request.ip || 'unknown',
-      user_agent: request.headers.get('user-agent') || 'stripe-webhook'
+      ip_address: request.headers.get('x-forwarded-for') || 'unknown',
+      user_agent: request.headers.get('user-agent') || 'stripe-webhook',
+      success: true
     });
 
     return NextResponse.json({ 
@@ -67,16 +67,17 @@ export async function POST(request: NextRequest) {
     // Log webhook error
     try {
       await auditLogger.logEvent({
-        user_id: null,
+        user_id: 'system',
         action: 'webhook_error',
-        resource_type: 'stripe_webhook',
-        resource_id: null,
+        resource_type: 'subscription',
+        resource_id: 'webhook-error',
         details: {
           error: error instanceof Error ? error.message : 'Unknown error',
           timestamp: new Date().toISOString()
         },
-        ip_address: request.ip || 'unknown',
-        user_agent: request.headers.get('user-agent') || 'stripe-webhook'
+        ip_address: request.headers.get('x-forwarded-for') || 'unknown',
+        user_agent: request.headers.get('user-agent') || 'stripe-webhook',
+        success: false
       });
     } catch (auditError) {
       console.error('Failed to log webhook error:', auditError);

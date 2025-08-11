@@ -29,7 +29,7 @@ export interface CompanyNode extends Node {
   };
 }
 
-export interface RelationshipEdge extends Edge {
+export interface RelationshipEdge {
   id: string;
   source: string;
   target: string;

@@ -154,8 +154,7 @@ class EnterpriseAPIManager {
           expires_at: expiresAt?.toISOString(),
           key_generation: 'successful'
         },
-        success: true,
-        severity: 'info'
+        success: true
       });
 
       return {
@@ -178,8 +177,7 @@ class EnterpriseAPIManager {
           requested_scopes: request.scopes
         },
         success: false,
-        error_message: error instanceof Error ? error.message : 'API key generation failed',
-        severity: 'warning'
+        error_message: error instanceof Error ? error.message : 'API key generation failed'
       });
 
       throw new Error(`API key generation failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
@@ -389,8 +387,7 @@ class EnterpriseAPIManager {
           revoked_at: new Date().toISOString(),
           security_action: 'api_key_revoked'
         },
-        success: true,
-        severity: 'warning'
+        success: true
       });
 
       // Remove from rate limit cache
@@ -506,15 +503,14 @@ class EnterpriseAPIManager {
         violation_timestamp: new Date().toISOString(),
         security_event: true
       },
-      success: false,
-      severity: 'warning'
+      success: false
     });
   }
 
   private async logSecurityEvent(eventType: string, keyId: string, details: any): Promise<void> {
     await auditLogger.logEvent({
       user_id: 'security-system',
-      action: eventType,
+      action: 'api_key_create',
       resource_type: 'api_key',
       resource_id: keyId,
       details: {
@@ -523,7 +519,6 @@ class EnterpriseAPIManager {
         ...details
       },
       success: false,
-      severity: 'critical'
     });
   }
 }
